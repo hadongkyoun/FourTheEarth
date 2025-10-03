@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,28 +10,47 @@ public class PlayerStateManager : StateManager<PlayerStateManager>
     private PlayerMovement2D movement2D;
     public PlayerMovement2D Movement2D { get { return movement2D; } }
 
-    private Vector2          moveInput = Vector2.zero;
+    private Vector2 moveInput = Vector2.zero;
 
     protected override void Awake()
     {
         base.Awake();
         currentState = playerIdleState;
         currentState.EnterState(this);
-        
+
         movement2D = GetComponent<PlayerMovement2D>();
+        
+    }
+    private void OnEnable()
+    {
+        if (TryGetComponent<PlayerInputActionMapper>(out PlayerInputActionMapper _playerActionMapper))
+        {
+            PlayerInputActions playerInputActions = _playerActionMapper.PlayerInputActions;
+            playerInputActions.Player.Move.performed += Move;
+            playerInputActions.Player.Move.canceled += Stop;
+        }
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    private void OnDestroy()
     {
-        if (context.performed)
+        if (TryGetComponent<PlayerInputActionMapper>(out PlayerInputActionMapper _playerActionMapper))
         {
-            moveInput = context.ReadValue<Vector2>();
-            movement2D.MoveDirection = moveInput.normalized;
+            PlayerInputActions playerInputActions = _playerActionMapper.PlayerInputActions;
+            playerInputActions.Player.Move.performed -= Move;
+            playerInputActions.Player.Move.canceled -= Stop;
         }
-        else if (context.canceled)
-        {
-            movement2D.MoveDirection = Vector2.zero;
-        }
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+        movement2D.MoveDirection = moveInput.normalized;
+
+    }
+
+    public void Stop(InputAction.CallbackContext context)
+    {
+        movement2D.MoveDirection = Vector2.zero;
     }
 
 }

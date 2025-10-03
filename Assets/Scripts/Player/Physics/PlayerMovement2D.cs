@@ -17,11 +17,6 @@ public class PlayerMovement2D : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
-    //void FixedUpdate()
-    //{
-    //    rb.MovePosition(rb.position + MoveDirection * moveSpeed * Time.fixedDeltaTime);
-    //}
-
     public void Move()
     {
         rb.MovePosition(rb.position + MoveDirection * moveSpeed * Time.fixedDeltaTime);

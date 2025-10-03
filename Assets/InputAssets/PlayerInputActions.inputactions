@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "Player",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -12,7 +12,7 @@
                     "id": "dc41ad70-5229-4dc6-93b5-35041162a2ae",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {

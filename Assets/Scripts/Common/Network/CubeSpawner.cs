@@ -10,9 +10,7 @@ public class CubeSpawner : NetworkBehaviour
     protected override void OnSpawned(bool asServer)
     {
         base.OnSpawned(asServer);
-
         enabled = isOwner;
-
     }
 
     private void Update()
