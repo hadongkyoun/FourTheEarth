@@ -21,7 +21,7 @@ public class PlayerStateManager : StateManager<PlayerStateManager>
         movement2D = GetComponent<PlayerMovement2D>();
         
     }
-    private void OnEnable()
+    private void Start()
     {
         if (TryGetComponent<PlayerInputActionMapper>(out PlayerInputActionMapper _playerActionMapper))
         {

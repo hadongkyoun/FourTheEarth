@@ -16,6 +16,11 @@ public class PlayerNumber : NetworkBehaviour
         numberText.text = "0";
         playerNumber.onChanged += OnPlayerNumberChanged;
 
+       
+    }
+
+    private void Start()
+    {
         if (isOwner && TryGetComponent<PlayerInputActionMapper>(out PlayerInputActionMapper _playerActionMapper))
         {
             PlayerInputActions playerInputActions = _playerActionMapper.PlayerInputActions;
